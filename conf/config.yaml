@@ -1,0 +1,56 @@
+{%- if type == "serial" %}
+serial:
+  # Use the following option to define the default serial port, defaults to unset (= AUTO)
+  port: /dev/ttyACM0
+
+  # Use the following option to define the default baudrate, defaults to unset (= AUTO)
+  baudrate: 115200
+
+  # Whether to automatically connect to the printer on server startup (if available)
+  autoconnect: false
+
+  # Whether to log whole communication to serial.log (warning: might decrease performance)
+  log: false
+
+  # Timeouts used for the serial connection to the printer, you might want to adjust these if you are
+  # experiencing connection problems
+  timeout:
+
+    # Timeout for waiting for a response from the currently tested port during autodetect, in seconds.
+    # Defaults to 0.5 sec
+    detection: 0.5
+
+    # Timeout for waiting to establish a connection with the selected port, in seconds.
+    # Defaults to 2 sec
+    connection: 2
+
+    # Timeout during serial communication, in seconds.
+    # Defaults to 5 sec
+    communication: 5
+
+  # Use this to define additional patterns to consider for serial port listing. Must be a valid
+  # "glob" pattern (see http://docs.python.org/2/library/glob.html). Defaults to not set.
+  additionalPorts:
+  - /dev/myPrinterSymlink
+{%- elif type == "both" %}
+server:
+  # Use this option to define the host to which to bind the server, defaults to "0.0.0.0" (= all interfaces)
+  host: 0.0.0.0
+
+  # Use this option to define the port to which to bind the server, defaults to 5000
+  port: 5000
+
+  # [devel] Use this option to define an optional baseUrl (with a leading /, so absolute to your
+  # server's root) under which to run OctoPrint. This should only be needed if you want to run 
+  # OctoPrint behind a reverse proxy under a different root endpoint than `/` and can't configure 
+  # said reverse proxy to send `X-Script-Name` and `X-Scheme` HTTP headers with 
+  # forwarded requests (see below). Defaults to an empty string and therefore the server root.
+  baseUrl: /octoprint
+
+  # [devel] Use this option to define an optional URL scheme under which to run OctoPrint.
+  # Should only be needed for use with reverse proxies, see above.
+  scheme: http
+
+  # will be automatically set to false once the first-run-wizard has been completed
+  firstRun: true
+{%- endif %}

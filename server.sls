@@ -10,39 +10,49 @@ include:
 include:
   - git
 
-repo_octoprint:
+/srv/octoprint:
+  file.directory
+
+/srv/octoprint/base:
+  file.directory:
+  - require:
+    - file: /srv/octoprint
+
+octoprint_repo:
   git.latest:
-  {%- if pillar.octoprint.server.source is defined %}
-  - name: {{ pillar.octoprint.server.source }}
+  {%- if pillar.octoprint.server.source.address is defined %}
+  - name: {{ pillar.octoprint.server.source.address }}
   {%- else %}
   - name: https://github.com/foosel/OctoPrint.git
   {%- endif %}
-  - target: /srv/octoprint/
+  - target: /srv/octoprint/server
   - runas: root
-  {%- if pillar.octoprint.server.rev is defined %}
-  - rev: {{ pillar.octoprint.server.rev }}
+  {%- if pillar.octoprint.server.source.rev is defined %}
+  - rev: {{ pillar.octoprint.server.source.rev }}
   {%- else %}
   - rev: master
   {%- endif %}
   - require:
-    - pkg: git
+    - pkg: git_packages
+    - file: /srv/octoprint
 
-/srv/octoprint/octoprint:
+/srv/octoprint/env:
   virtualenv.manage:
-    - no_site_packages: True
-    - requirements: salt://print/conf/requirements.txt
-    - require:
-      - git: repo_octoprint
+  - no_site_packages: True
+  - requirements: salt://print/conf/requirements.txt
+  - require:
+    - git: octoprint_repo
+    - file: /srv/octoprint
 
-/srv/octoprint/octoprint/config.yaml:
+/srv/octoprint/config.yaml:
   file:
   - managed
   - source: salt://octoprint/conf/config.yaml
   - template: jinja
   - defaults:
-    type: "{{ pillar.octoprint.server.type }}"
     features: "[temp, webcam]"
   - require:
-    - git: repo_octoprint
+    - git: octoprint_repo
+    - file: /srv/octoprint
 
 {%- endif %}

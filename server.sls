@@ -11,11 +11,36 @@ include:
   - git
   - python
 
+octoprint_user:
+  user.present:
+  - name: octoprint
+#  - system: True
+  - shell: /bin/bash
+  - home: /srv/octoprint
+
 /srv/octoprint:
-  file.directory
+  file.directory:
+  - user: octoprint
+  - group: octoprint
+  - mode: 755
+  - makedirs: True
+  - require:
+    - user: octoprint_user
+
+/var/log/octoprint:
+  file.directory:
+  - user: octoprint
+  - group: octoprint
+  - mode: 755
+  - makedirs: True
+  - require:
+    - user: octoprint_user
 
 /srv/octoprint/base:
   file.directory:
+  - user: octoprint
+  - group: octoprint
+  - mode: 755
   - require:
     - file: /srv/octoprint
 

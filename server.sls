@@ -9,6 +9,7 @@ include:
 
 include:
   - git
+  - python
 
 /srv/octoprint:
   file.directory
@@ -39,10 +40,11 @@ octoprint_repo:
 /srv/octoprint/env:
   virtualenv.manage:
   - no_site_packages: True
-  - requirements: salt://print/conf/requirements.txt
+  - requirements: salt://octoprint/conf/requirements.txt
   - require:
     - git: octoprint_repo
     - file: /srv/octoprint
+    - pkg: python_packages
 
 /srv/octoprint/config.yaml:
   file:

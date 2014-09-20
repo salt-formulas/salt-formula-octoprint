@@ -11,6 +11,8 @@ octoprint_user:
 #  - system: True
   - shell: /bin/bash
   - home: /srv/octoprint
+  - groups:
+    - dialout
 
 /srv/octoprint:
   file.directory:
@@ -68,6 +70,8 @@ octoprint_repo:
 /srv/octoprint/config.yaml:
   file.managed:
   - source: salt://octoprint/conf/config.yaml
+  - user: octoprint
+  - group: octoprint
   - template: jinja
   - require:
     - git: octoprint_repo

@@ -3,9 +3,6 @@
 
 include:
   - git
-
-include:
-  - git
   - python
 
 octoprint_user:

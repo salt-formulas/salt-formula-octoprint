@@ -16,6 +16,9 @@ The responsive web interface for 3D printer
         printer:
           engine: serial
           webcam: true
+        webcam:
+          host: localhost
+          port: 1234
 
 ## Read more
 

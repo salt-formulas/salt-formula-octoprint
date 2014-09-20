@@ -46,3 +46,36 @@ serial:
   # "glob" pattern (see http://docs.python.org/2/library/glob.html). Defaults to not set.
 #  additionalPorts:
 #  - /dev/myPrinterSymlink
+{%- if server.webcam is defined %}
+webcam:
+  # Use this option to enable display of a webcam stream in the UI, e.g. via MJPG-Streamer.
+  # Webcam support will be disabled if not set
+
+  stream: http://{{ server.webcam.host }}:{{ server.webcam.port }}
+
+  # Use this option to enable timelapse support via snapshot, e.g. via MJPG-Streamer.
+  # Timelapse support will be disabled if not set
+  #snapshot: http://<stream host>:<stream port>/?action=snapshot
+
+  # Path to ffmpeg binary to use for creating timelapse recordings.
+  # Timelapse support will be disabled if not set
+  #ffmpeg: /path/to/ffmpeg
+
+  # The bitrate to use for rendering the timelapse video. This gets directly passed to ffmpeg.
+  #bitrate: 5000k
+
+  # Whether to include a "created with OctoPrint" watermark in the generated timelapse movies
+  #watermark: true
+
+  # The default timelapse settings.
+  #timelapse:
+
+    # The timelapse type. Can be either "off", "zchange" or "timed". Defaults to "off"
+    #type: timed
+
+    # Additional options depending on the timelapse type. Currently only the "timed" timelapse takes
+    # the interval which to leave between images as option "interval", given in seconds. This example
+    # therefore configures a "Timed" timelapse with an interval of 2s. Defaults to empty.
+    #options:
+    #  interval: 2
+{%- endif %}

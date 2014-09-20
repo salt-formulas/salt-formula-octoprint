@@ -1,11 +1,8 @@
-{%- if pillar.octoprint.server.enabled %}
+{%- from "octoprint/map.jinja" import server with context %}
+{%- if server.enabled %}
 
-{% set os = salt['grains.item']('os')['os'] %}
-
-{#{%- if type.source|regexreplace("@.*+","") == "git" %}
 include:
   - git
-#}
 
 include:
   - git
@@ -46,15 +43,15 @@ octoprint_user:
 
 octoprint_repo:
   git.latest:
-  {%- if pillar.octoprint.server.source.address is defined %}
-  - name: {{ pillar.octoprint.server.source.address }}
+  {%- if server.source.address is defined %}
+  - name: {{ server.source.address }}
   {%- else %}
   - name: https://github.com/foosel/OctoPrint.git
   {%- endif %}
   - target: /srv/octoprint/server
   - runas: root
-  {%- if pillar.octoprint.server.source.rev is defined %}
-  - rev: {{ pillar.octoprint.server.source.rev }}
+  {%- if server.source.rev is defined %}
+  - rev: {{ server.source.rev }}
   {%- else %}
   - rev: master
   {%- endif %}
@@ -72,12 +69,9 @@ octoprint_repo:
     - pkg: python_packages
 
 /srv/octoprint/config.yaml:
-  file:
-  - managed
+  file.managed:
   - source: salt://octoprint/conf/config.yaml
   - template: jinja
-  - defaults:
-    features: "[temp, webcam]"
   - require:
     - git: octoprint_repo
     - file: /srv/octoprint

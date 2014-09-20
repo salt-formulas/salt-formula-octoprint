@@ -1,0 +1,14 @@
+
+{% set server = salt['grains.filter_by']({
+    'default': {
+        'printer': {
+            'engine': 'serial',
+            'port': '/dev/ttyACM0',
+            'baudrate': 115200,
+        }
+        'bind': {
+            'address': '0.0.0.0',
+            'port': 5500,
+        },
+    },
+}, merge=salt['pillar.get']('octoprint:server')) %}

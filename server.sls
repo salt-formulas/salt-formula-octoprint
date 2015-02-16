@@ -77,7 +77,7 @@ octoprint_repo:
     - git: octoprint_repo
     - file: /srv/octoprint
 
-/srv/octoprint/evn/bin/server_start:
+/srv/octoprint/env/bin/server_start:
   file.managed:
   - source: salt://octoprint/files/server_start
   - mode: 700

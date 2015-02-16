@@ -2,8 +2,8 @@
 {%- if server.enabled %}
 
 include:
-  - git
-  - python
+- git
+- python
 
 octoprint_user:
   user.present:
@@ -61,7 +61,7 @@ octoprint_repo:
 /srv/octoprint/env:
   virtualenv.manage:
   - no_site_packages: True
-  - requirements: salt://octoprint/conf/requirements.txt
+  - requirements: salt://octoprint/files/requirements.txt
   - require:
     - git: octoprint_repo
     - file: /srv/octoprint
@@ -69,12 +69,22 @@ octoprint_repo:
 
 /srv/octoprint/config.yaml:
   file.managed:
-  - source: salt://octoprint/conf/config.yaml
+  - source: salt://octoprint/files/config.yaml
   - user: octoprint
   - group: octoprint
   - template: jinja
   - require:
     - git: octoprint_repo
     - file: /srv/octoprint
+
+/srv/octoprint/evn/bin/server_start:
+  file.managed:
+  - source: salt://django_math/files/server_start
+  - mode: 700
+  - user: octoprint
+  - group: octoprint
+  - template: jinja
+  - require:
+    - virtualenv: /srv/octoprint/env
 
 {%- endif %}

@@ -79,7 +79,7 @@ octoprint_repo:
 
 /srv/octoprint/evn/bin/server_start:
   file.managed:
-  - source: salt://django_math/files/server_start
+  - source: salt://octoprint/files/server_start
   - mode: 700
   - user: octoprint
   - group: octoprint

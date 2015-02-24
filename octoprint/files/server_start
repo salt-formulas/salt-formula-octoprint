@@ -1,0 +1,15 @@
+#!/bin/bash
+{%- set server = pillar.octoprint.server %}
+
+NAME="octoprint"
+DJANGODIR=/srv/octoprint
+USER=octoprint
+GROUP=octoprint
+
+echo "Starting $NAME as `whoami`"
+
+# Activate the virtual environment
+cd $DJANGODIR
+source ./env/bin/activate
+
+python /srv/octoprint/server/run --config /srv/octoprint/config.yaml

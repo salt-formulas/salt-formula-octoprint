@@ -1,0 +1,25 @@
+applications:
+- octoprint
+parameters:
+  _param:
+    octoprint_webcam_host: localhost
+    octoprint_webcam_port: 8081
+  supervisor:
+    server:
+      service:
+        octoprint_server:
+          name: server
+          type: octoprint
+  octoprint:
+    server:
+      enabled: true
+      source:
+        engine: git
+        address: https://github.com/foosel/OctoPrint.git
+        rev: master
+      printer:
+        engine: serial
+        webcam: true
+      webcam:
+        host: ${_param:octoprint_webcam_host}
+        port: ${_param:octoprint_webcam_port}

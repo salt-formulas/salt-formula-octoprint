@@ -1,10 +1,17 @@
-# Octoprint
+
+=================
+Octoprint formula
+=================
 
 The responsive web interface for 3D printer
 
-## Sample pillars
 
-### OctoPrint web UI with printers
+Sample pillars
+==============
+
+OctoPrint web UI with printers.
+
+.. code-block:: yaml
 
     octoprint:
       server:
@@ -20,7 +27,9 @@ The responsive web interface for 3D printer
           host: localhost
           port: 1234
 
-## Read more
+
+Read more
+=========
 
 * http://octoprint.org/
 * https://github.com/foosel/OctoPrint

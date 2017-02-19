@@ -3,7 +3,7 @@
 Octoprint formula
 =================
 
-The responsive web interface for 3D printer
+The snappy web interface for your 3D printer.
 
 
 Sample pillars
@@ -28,11 +28,12 @@ OctoPrint web UI with printers.
           port: 1234
 
 
-Read more
-=========
+External links
+==============
 
 * http://octoprint.org/
 * https://github.com/foosel/OctoPrint
+
 
 Documentation and Bugs
 ======================

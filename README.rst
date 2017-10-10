@@ -3,13 +3,13 @@
 Octoprint formula
 =================
 
-The snappy web interface for your 3D printer.
+The web interface for your 3D printer.
 
 
 Sample pillars
 ==============
 
-OctoPrint web UI with printers.
+Single printer [deprecated]
 
 .. code-block:: yaml
 
@@ -27,9 +27,42 @@ OctoPrint web UI with printers.
           host: localhost
           port: 1234
 
+Multi printers setup
 
-External links
-==============
+.. code-block:: yaml
+
+    octoprint:
+      server:
+        enabled: true
+        source:
+          engine: git
+          address 'https://github.com/foosel/OctoPrint.git'
+          rev: "master"
+        printer:
+          printer01:
+            bind:
+              address: 0.0.0.0
+              port: 5001
+            device:
+              bus: serial
+              port: /dev/ACM01
+              model: prusa-mk2
+            camera:
+              protocol: mjpg
+              url: localhost
+              port: 1234
+          printer02:
+            device:
+              bus: serial
+              port: /dev/ACM02
+              model: prusa-clone
+            bind:
+              address: 0.0.0.0
+              port: 5002
+
+
+More Information
+================
 
 * http://octoprint.org/
 * https://github.com/foosel/OctoPrint

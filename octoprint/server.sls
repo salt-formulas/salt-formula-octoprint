@@ -48,7 +48,6 @@ octoprint_repo:
   - name: https://github.com/foosel/OctoPrint.git
   {%- endif %}
   - target: /srv/octoprint/server
-  - runas: root
   {%- if server.source.rev is defined %}
   - rev: {{ server.source.rev }}
   {%- else %}

@@ -3,13 +3,7 @@ applications:
 parameters:
   _param:
     octoprint_webcam_host: localhost
-    octoprint_webcam_port: 8081
-  supervisor:
-    server:
-      service:
-        octoprint_server:
-          name: server
-          type: octoprint
+    octoprint_webcam_port: 8080
   octoprint:
     server:
       enabled: true
